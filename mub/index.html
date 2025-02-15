@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!--
+ * @Version：WebUpTime Beta0.5
+ * @Author: kylin930
+ * @Date: 2025-2-13 10:48
+ * @Description: 一个使用Python做后端的http(s)网站监测程序
+ * @Document：https://webuptime.devlab.icu
+ * @Copyright (c) 2025 by kylin930 All Rights Reserved. 
+ * @Warning：禁止以任何方式出售本项目 如发现一切后果自行负责！
+ * @Message：版权信息请保留
+-->
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ sitename }}</title>
+  <link rel="stylesheet" href="https://unpkg.com/mdui@1.0.2/dist/css/mdui.min.css">
+</head>
+<body class="mdui-theme-primary-indigo mdui-theme-accent-pink">
+
+<div class="mdui-container" style="margin-top: 50px;">
+  <div class="mdui-card">
+    <div class="mdui-card-header">
+      <div class="mdui-card-header-title">{{ title }}</div>
+    </div>
+    
+    <div class="mdui-card-content">
+      <p>这里是友链网站的当前状态。绿色是可以正常访问，红色是无法访问</p>
+      <table class="mdui-table">
+        <thead>
+          <tr>
+			<th>网站图标</th>
+            <th>服务名称</th>
+            <th>状态</th>
+            <th>上次检查时间</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+			<td><img src="https://example.com" style="width: 24px; height: 24px;"/></td>
+            <td><a href="https://xlbzi.cn" target="_blank">https://example.com</a>（示例域）</td>
+            <td><span class="{{ color1 }}">{{ check1 }}</span></td>
+            <td>{{ checktime }}</td>
+          </tr>
+          <tr>
+			<td><img src="https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png" style="width: 24px; height: 24px;"/></td>
+            <td><a href="https://baidu.com" target="_blank">https://baidu.com</a>（百度）</td>
+            <td><span class="{{ color2 }}">{{ check2 }}</span></td>
+            <td>{{ checktime }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+	<p>Copyright © 2025 example.com All Rights Reserved.</p>
+  </div>
+</div>
+<script src="https://unpkg.com/mdui@1.0.2/dist/js/mdui.min.js"></script>
+</body>
+</html>
