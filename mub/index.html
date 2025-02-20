@@ -1,56 +1,103 @@
 <!DOCTYPE html>
-<!--
- * @Version：WebUpTime Beta0.5
- * @Author: kylin930
- * @Date: 2025-2-13 10:48
- * @Description: 一个使用Python做后端的http(s)网站监测程序
- * @Document：https://webuptime.devlab.icu
- * @Copyright (c) 2025 by kylin930 All Rights Reserved. 
- * @Warning：禁止以任何方式出售本项目 如发现一切后果自行负责！
- * @Message：版权信息请保留
--->
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <title>{{ sitename }}</title>
   <link rel="stylesheet" href="https://unpkg.com/mdui@1.0.2/dist/css/mdui.min.css">
+  <link rel="icon" href="favicon.ico" sizes="16x16">
+  <meta name="description" content="友链在线状态监测">
+  <meta name="keywords" content="status,WebUpTime">
+  <meta name="author" content="kylin930">
 </head>
 <body class="mdui-theme-primary-indigo mdui-theme-accent-pink">
 
 <div class="mdui-container" style="margin-top: 50px;">
   <div class="mdui-card">
     <div class="mdui-card-header">
-      <div class="mdui-card-header-title">{{ title }}</div>
+      <div class="mdui-card-header-title">{{ title }}（WebUpTime v1.2.0）</div>
     </div>
     
     <div class="mdui-card-content">
-      <p>这里是友链网站的当前状态。绿色是可以正常访问，红色是无法访问</p>
+      <p>这里是友链网站的当前状态，每300秒检测一次。绿色是可以正常访问，红色是无法访问</p>
       <table class="mdui-table">
         <thead>
           <tr>
 			<th>网站图标</th>
             <th>服务名称</th>
             <th>状态</th>
+			<th>30天在线率</th>
             <th>上次检查时间</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-			<td><img src="https://example.com" style="width: 24px; height: 24px;"/></td>
-            <td><a href="https://xlbzi.cn" target="_blank">https://example.com</a>（示例域）</td>
+			<td><img src="https://xlbzi.cn/Image.jpg" style="width: 24px; height: 24px;"/></td>
+            <td><a href="https://xlbzi.cn" target="_blank">https://xlbzi.cn</a>（小林的小窝）</td>
             <td><span class="{{ color1 }}">{{ check1 }}</span></td>
+			<td>{{ uptime_rate1 }}%</td>
             <td>{{ checktime }}</td>
           </tr>
           <tr>
-			<td><img src="https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png" style="width: 24px; height: 24px;"/></td>
-            <td><a href="https://baidu.com" target="_blank">https://baidu.com</a>（百度）</td>
+			<td><img src="https://zuanshijia.github.io/img/favicon.png" style="width: 24px; height: 24px;"/></td>
+            <td><a href="https://zuanshijia.top" target="_blank">https://zuanshijia.top</a>（zuanshijia's Blog）</td>
             <td><span class="{{ color2 }}">{{ check2 }}</span></td>
+			<td>{{ uptime_rate2 }}%</td>
+            <td>{{ checktime }}</td>
+          </tr>
+          <tr>
+			<td><img src="https://xlbzi.cn/Image.jpg" style="width: 24px; height: 24px;"/></td>
+            <td><a href="https://awa.pw" target="_blank">https://awa.pw</a>（小林的二号个人博客）</td>
+            <td><span class="{{ color3 }}">{{ check3 }}</span></td>
+			<td>{{ uptime_rate3 }}%</td>
+            <td>{{ checktime }}</td>
+          </tr>
+		  <tr>
+			<td><img src="https://kina.uno/wp-content/uploads/2024/12/my.png" style="width: 24px; height: 24px;"/></td>
+            <td><a href="https://kina.uno" target="_blank">https://kina.uno</a>（kina漫记）</td>
+            <td><span class="{{ color4 }}">{{ check4 }}</span></td>
+			<td>{{ uptime_rate4 }}%</td>
+            <td>{{ checktime }}</td>
+          </tr>
+		  <tr>
+			<td><img src="https://image.kfdzcoffee.cn/i/1/avatar.png" style="width: 24px; height: 24px;"/></td>
+            <td><a href="https://blog.kfdzcoffee.cn" target="_blank">https://blog.kfdzcoffee.cn</a>（咖啡豆子coffee的小站）</td>
+            <td><span class="{{ color5 }}">{{ check5 }}</span></td>
+			<td>{{ uptime_rate5 }}%</td>
+            <td>{{ checktime }}</td>
+          </tr>
+		  <tr>
+			<td><img src="https://logo.nekopara.uk/logo.jpg" style="width: 24px; height: 24px;"/></td>
+            <td><a href="https://www.nekopara.uk" target="_blank">https://www.nekopara.uk</a>（GTX690战术核显卡导弹）</td>
+            <td><span class="{{ color6 }}">{{ check6 }}</span></td>
+			<td>{{ uptime_rate6 }}%</td>
+            <td>{{ checktime }}</td>
+          </tr>
+		  <tr>
+			<td><img src="https://s21.ax1x.com/2024/11/30/pA5o5CR.jpg" style="width: 24px; height: 24px;"/></td>
+            <td><a href="https://xiaoluo233.us.kg" target="_blank">https://xiaoluo233.us.kg</a>（萌小珞）</td>
+            <td><span class="{{ color7 }}">{{ check7 }}</span></td>
+			<td>{{ uptime_rate7 }}%</td>
+            <td>{{ checktime }}</td>
+          </tr>
+		  <tr>
+			<td><img src="https://p3-pc.douyinpic.com/aweme/100x100/aweme-avatar/tos-cn-i-0813_owAih0AAi0Q0ZdCE1RPACYBA0IPIRrFWnjtND.jpeg" style="width: 24px; height: 24px;"/></td>
+			<td><a href="https://lmem.cn" target="_blank">https://lmem.cn</a>（Takethe个人日记）</td>
+            <td><span class="{{ color8 }}">{{ check8 }}</span></td>
+			<td>{{ uptime_rate8 }}%</td>
+            <td>{{ checktime }}</td>
+          </tr>
+		  <tr>
+			<td><img src="https://cravatar.cn/avatar/1e84fce3269537e4aa7473602516bf6d?s=200" style="width: 24px; height: 24px;"/></td>
+            <td><a href="https://blog.ciy.cool" target="_blank">https://blog.ciy.cool</a>（Makoto' Blog）</td>
+            <td><span class="{{ color9 }}">{{ check9 }}</span></td>
+			<td>{{ uptime_rate9 }}%</td>
             <td>{{ checktime }}</td>
           </tr>
         </tbody>
       </table>
     </div>
-	<p>Copyright © 2025 example.com All Rights Reserved.</p>
+	<p>本页面使用Python作后端（不用Cpp是因为Windows的第三方库太难安装了），多并发，后端源码下载：<a href="https://webuptime.devlab.icu">webuptime.devlab.icu</a></p><br>
+	<p>作者：kylin930(Xiaolin) 禁止倒卖！</p>
   </div>
 </div>
 <script src="https://unpkg.com/mdui@1.0.2/dist/js/mdui.min.js"></script>
