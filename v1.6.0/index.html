@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>友情链接状态监测</title>
+  <link rel="stylesheet" href="https://unpkg.com/mdui@1.0.2/dist/css/mdui.min.css">
+  <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/Chart.js/3.7.1/chart.js"></script>
+  <link rel="icon" href="favicon.ico" sizes="16x16">
+  <meta name="description" content="友链在线状态监测">
+  <meta name="keywords" content="status,WebUpTime">
+  <meta name="author" content="kylin930">
+  <style>
+    /* 基本样式 */
+    .progress-container {
+        width: 100%;
+        background-color: #f3f3f3;
+        border-radius: 25px;
+        margin: 20px 0;
+        padding: 3px;
+    }
+
+    .progress-bar {
+        height: 20px;
+        border-radius: 20px;
+        width: 0%;
+        background-color: #76c7c0;
+        transition: width 0.4s;
+    }
+
+    /* 多段进度条的分段样式 */
+    .multi-step-progress {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .step {
+        flex-grow: 1;
+        margin: 0 2px;
+        position: relative;
+    }
+
+    .step::before {
+        content: '';
+        display: block;
+        height: 20px;
+        border-radius: 20px;
+        background-color: #ddd;
+    }
+
+    .step.completed::before {
+        background-color: #76c7c0;
+    }
+
+    .step span {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 12px;
+        white-space: nowrap;
+    }
+        .multi-progress {
+            display: flex;
+            height: 20px;
+            margin-bottom: 10px;
+        }
+        .segment {
+            height: 100%;
+            transition: width 0.5s ease;
+        }
+        .green { background-color: green; }
+        .red { background-color: red; }
+  </style>
+</head>
+<body class="mdui-theme-primary-indigo mdui-theme-accent-pink">
+  <div class="mdui-toolbar mdui-color-theme">
+    <span class="mdui-typo-title">友情链接状态监测</span>
+    <div class="mdui-toolbar-spacer"></div>
+    <a href="index.html" class="mdui-btn mdui-btn-icon">
+      <i class="mdui-icon material-icons">replay</i>
+    </a>
+    <a href="https://www.xiaorin.com" class="mdui-btn mdui-btn-icon">
+      <i class="mdui-icon material-icons">home</i>
+    </a>
+  </div>
+<div class="mdui-container" style="margin-top: 50px;">
+  <div class="mdui-card">
+    <div class="mdui-card-header">
+      <div class="mdui-card-header-title">友情链接状态监测（WebUpTime v1.6.0）</div>
+    </div>
+    <div class="mdui-card-content">
+      <p>这里是友链网站的当前状态，每5分钟检测一次。绿色是可以正常访问，红色是无法访问。</p>
+      <table class="mdui-table" id="statusTable">
+        <thead>
+          <tr>
+            <th>网站图标</th>
+            <th>服务名称</th>
+            <th>状态</th>
+            <th>今日在线率</th>
+            <th>30天在线率</th>
+            <th>Down次数</th>
+            <th>上次检查时间</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- 动态填充表格行 -->
+        </tbody>
+      </table>
+      <canvas id="responseTimeChart" width="400" height="200"></canvas>
+    </div>
+    <p>作者：Xiaolin 禁止倒卖！</p>
+    <p>BUG反馈邮箱：<a href="mailto:kylin930@xiaorin.com">kylin930@xiaorin.com</a></p>
+    <p>待本项目稳定后再继续开源后面的版本</p>
+    <h2>WebUpTime v1.6.0更新日志</h2>
+    <ol>
+        <li>新增响应时间的折线图，50天清除一次数据</li>
+    </ol>
+    <h2>WebUpTime v1.5.0更新日志</h2>
+    <ol>
+        <li>前后端分离，前端使用js连接后端</li>
+        <li>优化后端性能，提前计算30天在线率，不再每次访问页面时计算，节省后端服务器性能，提升了用户体验</li>
+        <li>新增了今日在线率和总共下线的次数（Down次数）</li>
+    </ol>
+  </div>
+</div>
+
+<script src="https://unpkg.com/mdui@1.0.2/dist/js/mdui.min.js"></script>
+<script src="list.js"></script>
+</body>
+</html>
