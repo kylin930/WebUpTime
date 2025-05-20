@@ -1,0 +1,111 @@
+.progress-container {
+    width: 100%;
+    background-color: #f3f3f3;
+    border-radius: 25px;
+    margin: 20px 0;
+    padding: 3px;
+}
+
+.progress-bar {
+    height: 20px;
+    border-radius: 20px;
+    width: 0%;
+    background-color: #76c7c0;
+    transition: width 0.4s;
+}
+
+.mdui-card {
+    background-color: rgba(255,255,255,0.7);
+}
+
+.mdui-progress-indeterminate {
+    background-color: rgba(255,255,255,0.7);
+}
+
+.mdui-theme-layout-dark .mdui-card {
+    background-color: rgba(33, 33, 33, 0.8);
+}
+
+body {
+    background-image: url('https://www.xiaorin.com/pic/62237074.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+@media only screen and (max-width: 600px) {
+    body {
+        background-image: url('https://www.xiaorin.com/pic/65156069.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+}
+
+/* 多段进度条的分段样式 */
+.multi-step-progress {
+    display: flex;
+    justify-content: space-between;
+}
+
+.step {
+    flex-grow: 1;
+    margin: 0 2px;
+    position: relative;
+}
+
+.step::before {
+    content: '';
+    display: block;
+    height: 20px;
+    border-radius: 20px;
+    background-color: #ddd;
+}
+
+.step.completed::before {
+    background-color: #76c7c0;
+}
+
+.step span {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    white-space: nowrap;
+}
+.multi-progress {
+    display: flex;
+    height: 20px;
+    margin-bottom: 10px;
+}
+.segment {
+    height: 100%;
+    transition: width 0.5s ease;
+}
+.green { background-color: green; }
+.red { background-color: red; }
+
+.log-card {
+    margin-bottom: 16px;
+}
+.log-icon {
+    margin-right: 10px;
+}
+.up {
+    color: #4caf50;
+}
+.down {
+    color: #f44336;
+}
+.log-time {
+    font-size: 0.875rem;
+    color: #757575;
+}
+.log-details {
+    margin-top: 8px;
+    font-size: 0.875rem;
+    color: #757575;
+}

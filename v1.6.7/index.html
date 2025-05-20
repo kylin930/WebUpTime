@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>友情链接状态监测</title>
+  <link rel="stylesheet" href="https://unpkg.com/mdui@1.0.2/dist/css/mdui.min.css">
+  <link rel="stylesheet" href="ui.css">
+  <link rel="stylesheet" href="daliy-uptime-ui.css">
+  <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/Chart.js/3.7.1/chart.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
+  <link rel="icon" href="favicon.ico" sizes="16x16">
+  <meta name="description" content="友链在线状态监测">
+  <meta name="keywords" content="status,WebUpTime">
+  <meta name="author" content="kylin930">
+</head>
+<body class="mdui-theme-primary-indigo mdui-theme-accent-indigo">
+    <div class="mdui-appbar mdui-appbar-scroll-hide mdui-headroom mdui-headroom-pinned-top">
+        <div class="mdui-toolbar mdui-color-theme">
+          <a class="mdui-typo-title">友情链接状态监测</a>
+          <a class="mdui-toolbar-spacer">WebUpTime v1.6.7</a>
+          <button id="qh" class="mdui-btn mdui-btn-icon">
+              <i class="mdui-icon material-icons" id="icon">brightness_low</i>
+          </button>
+          <button id="colorPickerButton" class="mdui-btn mdui-btn-icon">
+            <i class="mdui-icon material-icons">color_lens</i>
+          </button>
+          <button id="refreshButton" class="mdui-btn mdui-btn-icon">
+            <i class="mdui-icon material-icons">replay</i>
+          </button>
+          <a href="https://www.xiaorin.com" class="mdui-btn mdui-btn-icon">
+            <i class="mdui-icon material-icons">home</i>
+          </a>
+        </div>
+        <div class="mdui-tab mdui-color-theme" mdui-tab>
+          <a href="#home" class="mdui-ripple mdui-ripple-white">
+            <i class="mdui-icon material-icons">equalizer</i>
+            <label>监测</label>
+          </a>
+          <a href="#daliy-uptime" class="mdui-ripple mdui-ripple-white">
+            <i class="mdui-icon material-icons">data_usage</i>
+            <label>30天每日在线率</label>
+          </a>
+          <a href="#log" class="mdui-ripple mdui-ripple-white">
+            <i class="mdui-icon material-icons">watch_later</i>
+            <label>历史状态</label>
+          </a>
+          <a href="#chart" class="mdui-ripple mdui-ripple-white">
+            <i class="mdui-icon material-icons">show_chart</i>
+            <label>延迟波动折线图</label>
+          </a>
+          <a href="#update" class="mdui-ripple mdui-ripple-white">
+            <i class="mdui-icon material-icons">build</i>
+            <label>更新日志</label>
+          </a>
+        </div>
+      </div>
+    <div id="home">
+      <div class="mdui-container" style="margin-top: 50px;">
+        <div class="mdui-typo">
+          <div class="mdui-card">
+            <div class="mdui-card-content">
+              <p>这里是友链网站的当前状态，每5分钟监测一次。绿色是可以正常访问，红色是无法访问。</p>
+              <div id="sec">
+                <!-- 自动 -->
+              </div>
+              <div class="mdui-table-fluid">
+                <table class="mdui-table mdui-table-hoverable" id="statusTable">
+                  <thead>
+                    <tr>
+                      <th>网站图标</th>
+                      <th>服务名称</th>
+                      <th>状态</th>
+                      <th>今日在线率</th>
+                      <th>30天在线率</th>
+                      <th>Down次数</th>
+                      <th>上次检查时间</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- 动态填充表格行 -->
+                  </tbody>
+                </table>
+                </div>
+                <div id="loadingIndicator">
+                  <div  class="mdui-progress mdui-m-b-3">
+                    <div class="mdui-progress-indeterminate"></div>
+                  </div>
+                  从API获取监测数据中 （＾ω＾）
+                </div>
+                <div id="errorText" class="mdui-text-color-red mdui-m-b-3" style="display: none;">
+                    监测数据获取失败，可能是小林正在调试API或者树莓派炸了  (｡•ˇ‸ˇ•｡)
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  <div id="daliy-uptime">
+      <div class="mdui-container" style="margin-top: 50px;">
+          <div class="mdui-typo">
+            <div class="mdui-card">
+              <div class="mdui-card-content">
+                <p>（单独给这东西放一个栏是因为不想让主页的排版太乱）</p>
+                <div id="app" class="mdui-container">
+                    <!-- 动态插入 -->
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <div id="log">
+    <div class="mdui-container" style="margin-top: 50px;">
+        <div class="mdui-card">
+          <div class="mdui-card-content">
+            <div class="mdui-container mdui-m-t-5">
+              <div class="mdui-tab mdui-tab-scrollable" mdui-tab id="log-tabs">
+                <!-- Tab标签动态生成 -->
+              </div>
+
+              <div id="tab-content-container">
+                <!-- 日志Tab内容区域 -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <div id="chart">
+    <div class="mdui-container" style="margin-top: 50px;">
+        <div class="mdui-typo">
+          <div class="mdui-card">
+            <div class="mdui-card-content">
+              <div id="legendContainer"></div>
+              <canvas id="responseTimeChart" width="400" height="200"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <div id="update">
+    <div class="mdui-container" style="margin-top: 50px;">
+        <div class="mdui-typo">
+          <div class="mdui-card">
+            <div class="mdui-card-content">
+                <p>Powered By <a href="https://www.xiaorin.com/">Xiaolin</a></p>
+                  <p>BUG反馈邮箱：<a href="mailto:kylin930@xiaorin.com" class="mdui-link">kylin930@xiaorin.com</a></p>
+                  <p>开源地址：<a href="https://github.com/kylin930/WebUpTime">https://github.com/kylin930/WebUpTime</a></p>
+                  <h2>WebUpTime v1.6.7更新日志</h2>
+                  <ol>
+                      <li>修改卡片背景为半透明，并适配深浅色</li>
+                      <li>增加背景图片，移动端会自动切换为移动端的背景图片</li>
+                      <li>后端增加了容错率，如监测错误一次则会再次尝试监测一次确保准确</li>
+                      <li>新增状态日志，后面版本会更新ui的</li>
+                      <li>修改监测倒计时，自动循环</li>
+                      <li>修改折线图的操作，多选框查看</li>
+                  </ol>
+                  <h2>WebUpTime v1.6.6更新日志</h2>
+                  <ol>
+                      <li><strong>修复无法打开更换主题色弹窗的问题</strong></li>
+                      <li>新增下次监测倒计时，秒数只会在刷新（数据）时获取一次，然后由js倒计时</li>
+                      <li>新增30天每日在线率显示</li>
+                  </ol>
+                  <h2>WebUpTime v1.6.5更新日志</h2>
+                  <ol>
+                      <li>新增显示错误信息，将鼠标放置在“状态”一列的圆形小框上即可查看</li>
+                  </ol>
+                  <h2>WebUpTime v1.6.4更新日志</h2>
+                  <ol>
+                      <li>新增切换深色、浅色模式，使用localStorage存储深浅色数据</li>
+                      <li>新增调色盘，可以设置强调色和主题色，也使用localStorage存储</li>
+                  </ol>
+                  <h2>WebUpTime v1.6.3更新日志</h2>
+                  <strong>*本次更新只优化了前端样式与行为，未修改后端API</strong>
+                  <ol>
+                      <li>新增应用栏（之前是工具栏），添加Tab选项卡</li>
+                      <li>优化了移动端界面显示较小的问题，顺便美化了超链接的样式</li>
+                      <li>修改了刷新按钮的行为，点击刷新按钮不会刷新整个页面，直接通过js获取数据刷新</li>
+                  </ol>
+                  <h2>WebUpTime v1.6.0更新日志</h2>
+                  <ol>
+                      <li>新增响应时间的折线图</li>
+                  </ol>
+                  <h2>WebUpTime v1.5.0更新日志</h2>
+                  <ol>
+                      <li>前后端分离，前端使用js连接后端</li>
+                      <li>优化后端性能，提前计算30天在线率，不再每次访问页面时计算，节省后端服务器性能，提升了用户体验</li>
+                      <li>新增了今日在线率和总共下线的次数（Down次数）</li>
+                  </ol>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+
+  <div id="colorPickerDialog" class="mdui-dialog">
+    <div class="mdui-dialog-title">选择主题颜色</div>
+    <div class="mdui-dialog-content">
+        <label class="mdui-textfield-label">主色 (Primary Color)</label>
+        <select id="primaryColorInput" class="mdui-select">
+            <!-- 动态填充颜色选项 -->
+        </select>
+
+        <label class="mdui-textfield-label">强调色 (Accent Color)</label>
+        <select id="accentColorInput" class="mdui-select">
+            <!-- 动态填充颜色选项 -->
+        </select>
+    </div>
+    <div class="mdui-dialog-actions">
+        <button class="mdui-btn mdui-ripple" mdui-dialog-cancel>取消</button>
+        <button id="applyColorButton" class="mdui-btn mdui-ripple" mdui-dialog-confirm>应用</button>
+    </div>
+</div>
+</div>
+<script src="https://unpkg.com/mdui@1.0.2/dist/js/mdui.min.js"></script>
+<script src="list.js"></script>
+<script src="daliy-uptime.js"></script>
+<script src="statuslog.js"></script>
+<script src="color.js"></script>
+<script src="uimode.js"></script>
+</body>
+</html>
