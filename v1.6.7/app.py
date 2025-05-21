@@ -21,7 +21,7 @@ icons=[
 ]
 names=[
     "example1",
-    "example2"
+    "example2",
 ]
 ch = ["正常"]*len(links)
 co = ["mdui-chip mdui-color-green"]*len(links)
@@ -184,7 +184,7 @@ def retry_request(url, headers, max_retries=2):
             response = requests.get(url, timeout=(7, 5), headers=header)
             end_time = round((time.time() - start_time) * 1000, 2)
             print(f"{url}: {response.status_code}, 响应时间: {end_time}ms")
-            return response, end_time, None
+            return response, end_time, None, None
         except requests.exceptions.ConnectTimeout:
             error_msg = "请求超时（连接超时）"
             print(f"{url}: 请求超时（连接超时）")
@@ -287,7 +287,7 @@ def webup():
                     "time": datetime.now().strftime("%Y/%m/%d %H:%M:%S"),
                     "url": url,
                     "event": "下线（Down）",
-                    "message": error_msg or "未知错误"
+                    "message": error_msg or "未知错误",
                     "details": derror or "无"
                 }
                 log_data[str(i)].append(log_entry)
